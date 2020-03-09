@@ -17,6 +17,7 @@ export default Component.extend({
    * @type('boolean')
    */
   eventsEnabled: true,
+  positionFixed: false,
 
   /**
    * Whether the Popper element should be hidden. Use this and CSS for `[hidden]` instead of
@@ -94,6 +95,7 @@ export default Component.extend({
    * Tracks current/previous value of `eventsEnabled` option
    */
   _eventsEnabled: null,
+  _positionFixed: null,
 
   /**
    * Parent of the element on didInsertElement, before it may have been moved
@@ -224,6 +226,7 @@ export default Component.extend({
     }
 
     const eventsEnabled = this.get('eventsEnabled');
+    const positionFixed = this.get('positionFixed');
     const modifiers = this.get('modifiers');
     const onCreate = this.get('onCreate');
     const onUpdate = this.get('onUpdate');
@@ -235,6 +238,7 @@ export default Component.extend({
     const didChange = renderInPlace !== this._didRenderInPlace
       || popperTarget !== this._popperTarget
       || eventsEnabled !== this._eventsEnabled
+      || positionFixed !== this._positionFixed
       || modifiers !== this._modifiers
       || placement !== this._placement
       || onCreate !== this._onCreate
@@ -248,6 +252,7 @@ export default Component.extend({
       // Store current values to check against on updates
       this._didRenderInPlace = renderInPlace;
       this._eventsEnabled = eventsEnabled;
+      this._positionFixed = positionFixed;
       this._modifiers = modifiers;
       this._onCreate = onCreate;
       this._onUpdate = onUpdate;
@@ -256,6 +261,7 @@ export default Component.extend({
 
       const options = {
         eventsEnabled,
+        positionFixed,
         modifiers,
         placement
       };
